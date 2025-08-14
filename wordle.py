@@ -30,7 +30,6 @@ def get_word(word_list: list[str]) -> str:
     return word_list[random_index]
 
 
-initialize()
 def main() -> None:
     secret_word: str = get_word(WORD_LIST)
     current_list: list[str] = [""] * NUM_GUESS
@@ -74,7 +73,8 @@ def main() -> None:
 
 if __name__ == '__main__':
     while True:
+        initialize()
         main()
         if input("Try again? (y/n): ").lower() == "n":
-
             break
+
