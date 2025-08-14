@@ -1,30 +1,30 @@
 # Wordle Remake
 # Made by Ruddra Hassan on 14th August 2025
 
-from random import randint
+from random import choice
 
-WORD_LIST: list[str] = []
-
-GREEN_HEART: str = "💚"      # Letter part of word, in that exact position
-YELLOW_HEART: str = "💛"     # Letter part of word, not in that exact position
-GRAY_HEART: str = "🩶"       # Letter not part of word
+GREEN_HEART: str = "💚"      # Correct letter, correct position
+YELLOW_HEART: str = "💛"     # Correct letter, incorrect position
+GRAY_HEART: str = "🩶"       # Incorrect letter
 
 NUM_GUESSES: int = 5         # <-- Change this to increase/decrease the number of allowed guesses
 WORD_FILE: str = "words.txt" # <-- Change this to word list file name
 
 
-def initialize() -> None:
+def initialize(file_path: str) -> list[str]:
     try:
-        with open(WORD_FILE, "r") as file:
-            WORD_LIST.extend(word.strip() for word in file)
-        print(f"☑️ Successfully loaded {len(WORD_LIST)} words.")
+        with open(file_path, "r") as file:
+            word_list = [word.strip().lower() for word in file]
+            word_list = [word for word in word_list if len(word) == 5]
+        print(f"☑️ Successfully loaded in {len(word_list)} words")
+        return word_list
     except IOError:
         print("⚠️ Critical Error: Word list not found")
         exit()
 
 
 def select_word(word_list: list[str]) -> str:
-    return word_list[randint(0, len(word_list))]
+    return choice(word_list)
 
 
 def generate_feedback(secret: str, guess: str) -> str:
@@ -51,14 +51,14 @@ def generate_feedback(secret: str, guess: str) -> str:
     return "".join(feedback)
 
 
-def main() -> None:
-    secret_word: str = select_word(WORD_LIST)
+def play_game(word_list: list[str]) -> None:
+    secret_word: str = select_word(word_list)
     feedbacks: list[str] = []
     guessed: bool = False
     
     for attempt in range(NUM_GUESSES):
         while True:
-            guess: str = input(f"Guess {attempt + 1} >> ").lower()
+            guess: str = input(f"Guess {attempt + 1}/{NUM_GUESSES} >> ").lower()
             if len(guess) == 5:
                 break
             print("⚠️ Invalid guess! Word must be 5 letters.")
@@ -78,11 +78,20 @@ def main() -> None:
               f"\nℹ️ Word was {secret_word.capitalize()}\n")
     
     print("\n".join(feedbacks))
-
+    
+    
+def print_instructions() -> None:
+    print("\n--- Wordle ---"
+          "\nGuess the 5-letter word!"
+          f"\nYou have {NUM_GUESSES} attempts."
+          f"\n  - {GREEN_HEART} indicates a correct letter in the correct position."
+          f"\n  - {YELLOW_HEART} indicates a correct letter in the wrong position."
+          f"\n  - {GRAY_HEART} indicates a letter that is not in the word.\n")
 
 if __name__ == "__main__":
-    initialize()
+    words: list[str] = initialize(WORD_FILE)
+    print_instructions()
     while True:
-        main()
+        play_game(words)
         if input("\n🔃 Try again? [y/n] >> ").lower() == "n":
             break
