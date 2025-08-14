@@ -72,9 +72,8 @@ def main() -> None:
         print("\n")
 
 if __name__ == '__main__':
+    initialize()
     while True:
-        initialize()
         main()
         if input("Try again? (y/n): ").lower() == "n":
             break
-
