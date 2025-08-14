@@ -4,8 +4,7 @@
 from random import randint
 from typing import TextIO
 
-WORD_LIST: list[str] = ["fiber", "movie", "local", "ready", "drill", "green", "occur", "smith", "drawn", "party",
-                        "undue", "peace", "stuck", "those", "river", "guest", "block", "shirt", "proud", "royal"]
+WORD_LIST: list[str] = []
 GREEN_BLOCK: str = "💚"
 YELLOW_BLOCK: str = "💛"
 GRAY_BLOCK: str = "🩶"
@@ -77,4 +76,5 @@ if __name__ == '__main__':
     while True:
         main()
         if input("Try again? (y/n): ").lower() == "n":
+
             break
