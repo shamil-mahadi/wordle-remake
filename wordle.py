@@ -89,7 +89,7 @@ def select_feedback_pref() -> int:
         print("\nℹ️ Select feedback preference: "
               f"\n\t- [1] Colored Hearts {color_heart['green']}{color_heart['yellow']}{color_heart['gray']} (DEFAULT)"
               f"\n\t- [2] Colored Text {color_text['green']}Green{color_text['reset']} "
-              f"{color_text['yellow']}yellow{color_text['reset']} {color_text['gray']}Gray{color_text['reset']}")
+              f"{color_text['yellow']}Yellow{color_text['reset']} {color_text['gray']}Gray{color_text['reset']}")
         try:
             pref: int = int(input(">> "))
             if pref in [1, 2]:
