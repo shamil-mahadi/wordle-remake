@@ -10,7 +10,7 @@ If you have never played Wordle, what are you doing here?
 
 Anyway, here are some pictures of the game:
 
-<img width="790" height="444" alt="image" src="https://github.com/user-attachments/assets/135d063f-8de6-4249-b0e4-1f485003297e" />
+<img width="790" height="444" alt="image" src="https://github.com/user-attachments/assets/3a86a9a6-9677-4a66-8bf7-4b7f1d4b2547" />
 
 <img width="456" height="1533" alt="image" src="https://github.com/user-attachments/assets/91eef3f1-8628-428c-8b53-8ff1bbf5bb54" />
 
