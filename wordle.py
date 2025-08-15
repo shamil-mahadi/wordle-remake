@@ -3,12 +3,23 @@
 
 from random import choice
 
-GREEN_HEART: str = "💚"      # Correct letter, correct position
-YELLOW_HEART: str = "💛"     # Correct letter, incorrect position
-GRAY_HEART: str = "🩶"       # Incorrect letter
 
-NUM_GUESSES: int = 5         # <-- Change this to increase/decrease the number of allowed guesses
-WORD_FILE: str = "words.txt" # <-- Change this to word list file name
+class Heart:
+    GREEN: str = "💚"  # Correct letter, correct position
+    YELLOW: str = "💛"  # Correct letter, incorrect position
+    GRAY: str = "🩶"  # Incorrect letter
+
+
+class Color:
+    GREEN: str = "\33[92m"  # Correct letter, correct position
+    YELLOW: str = "\33[93m"  # Correct letter, incorrect position
+    GRAY: str = "\33[37m"  # Incorrect letter
+    RESET: str = "\33[0m"  # Reset color
+
+
+NUM_GUESSES: int = 5  # <-- Change this to increase/decrease the number of allowed guesses
+WORD_FILE: str = "words.txt"  # <-- Change this to word list file name
+FEEDBACK_PREF: int = 1  # <-- 1. colored hearts   2. colored text
 
 
 def initialize(file_path: str) -> list[str]:
@@ -36,17 +47,26 @@ def generate_feedback(secret: str, guess: str) -> str:
     
     for idx in range(5):
         if guess[idx] == secret[idx]:
-            feedback[idx] = GREEN_HEART
+            if FEEDBACK_PREF == 1:
+                feedback[idx] = Heart.GREEN
+            else:  # FEEDBACK_PREF == 2
+                feedback[idx] = f"{Color.GREEN}{guess[idx]}{Color.RESET}"
             frequency[guess[idx]] -= 1
     
     for idx in range(5):
         if feedback[idx]:
             continue
         if guess[idx] in frequency and frequency[guess[idx]] > 0:
-            feedback[idx] = YELLOW_HEART
+            if FEEDBACK_PREF == 1:
+                feedback[idx] = Heart.YELLOW
+            else:  # FEEDBACK_PREF == 2
+                feedback[idx] = f"{Color.YELLOW}{guess[idx]}{Color.RESET}"
             frequency[guess[idx]] -= 1
         else:
-            feedback[idx] = GRAY_HEART
+            if FEEDBACK_PREF == 1:
+                feedback[idx] = Heart.GRAY
+            else:  # FEEDBACK_PREF == 2
+                feedback[idx] = f"{Color.GRAY}{guess[idx]}{Color.RESET}"
     
     return "".join(feedback)
 
@@ -65,9 +85,9 @@ def play_game(word_list: list[str]) -> None:
         
         feedback: str = generate_feedback(secret_word, guess)
         feedbacks.append(feedback)
-        print(feedback)
+        print("\n".join(feedbacks))
         
-        if feedback == GREEN_HEART * 5:
+        if guess == secret_word:
             print(f"\n💗 Word was: {secret_word.capitalize()}"
                   f"\nℹ️ Found in {attempt + 1} attempts\n")
             guessed = True
@@ -78,18 +98,38 @@ def play_game(word_list: list[str]) -> None:
               f"\nℹ️ Word was {secret_word.capitalize()}\n")
     
     print("\n".join(feedbacks))
-    
-    
+
+
 def print_instructions() -> None:
     print("\n--- Wordle ---"
           "\nGuess the 5-letter word!"
-          f"\nYou have {NUM_GUESSES} attempts."
-          f"\n  - {GREEN_HEART} indicates a correct letter in the correct position."
-          f"\n  - {YELLOW_HEART} indicates a correct letter in the wrong position."
-          f"\n  - {GRAY_HEART} indicates a letter that is not in the word.\n")
+          f"\nYou have {NUM_GUESSES} attempts.")
+    if FEEDBACK_PREF == 1:
+        print(f"\n  - {Heart.GREEN} indicates a correct letter in the correct position."
+              f"\n  - {Heart.YELLOW} indicates a correct letter in the wrong position."
+              f"\n  - {Heart.GRAY} indicates a letter that is not in the word.\n")
+    else:  # FEEDBACK_PREF == 2
+        print(f"\n  - {Color.GREEN}Green{Color.RESET} indicates a correct letter in the correct position."
+              f"\n  - {Color.YELLOW}Yellow{Color.RESET} indicates a correct letter in the wrong position."
+              f"\n  - {Color.GRAY}Gray{Color.RESET} indicates a letter that is not in the word.\n")
+
+
+def select_feedback_pref() -> int:
+    while True:
+        print("\nℹ️ Select feedback preference: "
+              f"\n\t- [1] Colored Hearts {Heart.GREEN}{Heart.YELLOW}{Heart.GRAY} (DEFAULT)"
+              f"\n\t- [2] Colored Text {Color.GREEN}Green{Color.RESET} {Color.YELLOW}Yellow{Color.RESET}"
+              f" {Color.GRAY}Gray{Color.RESET}")
+        pref: int = int(input(">> "))
+        if pref in [1, 2]:
+            return pref
+        else:
+            return 1
+
 
 if __name__ == "__main__":
     words: list[str] = initialize(WORD_FILE)
+    FEEDBACK_PREF = select_feedback_pref()
     print_instructions()
     while True:
         play_game(words)
