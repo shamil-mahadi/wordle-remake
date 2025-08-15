@@ -104,13 +104,11 @@ def select_num_attempts() -> int:
         try:
             num: int = int(input(">> "))
             if num > 0:
-                if 5 < num > 10 and input("⚠️ Are you sure? [y/n] >> ").lower().strip() != "n":
-                    return num
                 return num
             print("❌ Invalid number! Pick a valid positive integer")
         except ValueError:
             print("❌ Invalid number! Pick a valid positive integer")
-
+            
 
 def main() -> None:
     words: list[str] = initialize(WORD_FILE)
