@@ -7,7 +7,6 @@ WORD_FILE: str = "words.txt"  # <-- Change this to word list file name
 
 color_heart: dict = {"green": "💚", "yellow": "💛", "gray": "🩶"}
 color_text: dict = {"green": "\33[1;92m", "yellow": "\33[1;93m", "gray": "\33[1;37m", "reset": "\33[0m"}
-feedback_pref: int = 1
 
 
 def initialize(path: str) -> list[str]:
