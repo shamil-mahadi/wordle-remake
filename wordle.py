@@ -120,11 +120,14 @@ def select_feedback_pref() -> int:
               f"\n\t- [1] Colored Hearts {Heart.GREEN}{Heart.YELLOW}{Heart.GRAY} (DEFAULT)"
               f"\n\t- [2] Colored Text {Color.GREEN}Green{Color.RESET} {Color.YELLOW}Yellow{Color.RESET}"
               f" {Color.GRAY}Gray{Color.RESET}")
-        pref: int = int(input(">> "))
-        if pref in [1, 2]:
-            return pref
-        else:
-            return 1
+        try:
+            pref: int = int(input(">> "))
+            if pref in [1, 2]:
+                return pref
+            else:
+                print("⚠️ Invalid option! Pick a valid option [1/2]")
+        except ValueError:
+            print("⚠️ Invalid option! Pick a valid option [1/2]")
 
 
 if __name__ == "__main__":
