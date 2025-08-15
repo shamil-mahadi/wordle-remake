@@ -1,12 +1,59 @@
-This is a remake of the popular game Wordle which I made because I was bored as hell.
-What is Wordle? If you have never played [Wordle](https://www.nytimes.com/games/wordle/index.html), what are you doing here?
+# Wordle Remake
 
-How does it work? IDK, read the code.
+This is a remake of the popular game [Wordle](https://www.nytimes.com/games/wordle/index.html) which I made using Python because I was bored as hell. The game is purely based on the CLI and does not have a GUI ~~yet~~.
 
-Essentially if you look at the files there's a little file called "words.txt" which has 500 5-letter words I stole from a random website. Trust me, I am not creative enough to come up with 500 5-letter words.
+#### What is wordle? 
+If you have never played Wordle, what are you doing here?
 
-The program (wordle.py) then looks inside the file and puts it in an array and then randomly selects one of the word from the 500 words so that the player can then struggle to find the word! How exciting :3
+#### How does it work?
+~~IDK, read the code.~~ The program reads the 2000+ 5-letter words stored in a little file called `words.txt` (you can change the file path in the code) and stores it in an array and then randomly selects one of the word from the 2000+ 5-letter words so that the player can then struggle to find the word. How exciting! :3
 
-Anyway, here is a screenshot of how it works:
+Anyway, here are some pictures of the game:
 
-<img width="456" height="890" alt="image" src="https://github.com/user-attachments/assets/610cae45-834a-42ce-8173-8d8fd533cb0c" />
+<img width="790" height="444" alt="image" src="https://github.com/user-attachments/assets/135d063f-8de6-4249-b0e4-1f485003297e" />
+
+<img width="456" height="1533" alt="image" src="https://github.com/user-attachments/assets/91eef3f1-8628-428c-8b53-8ff1bbf5bb54" />
+
+# How to play?
+You can get a local copy of this project up and running by "cloning" the repository. Follow the steps below for your respective operating system:
+
+### Prerequisites
+Before you begin, make sure you have **Git** and **Python** installed on your computer. If you don't, you can download it from here:
+- [git-scm](https://git-scm.com/downloads)
+- [python](https://www.python.org/downloads/)
+
+## Windows
+#### 1. Open Command Prompt
+You can do this by pressing `Win` + `R` and typing in `cmd`.
+#### 2. Navigate to desired folder
+Pick a place where you want to save this project (locally ofc). For example, to save it on your desktop, type:
+
+`cd Desktop`
+
+##### Proceed to **Step 3** below the macOS instructions.
+
+## macOS
+#### 1. Open Terminal
+You can find it in `Applications/Utilities`, or by searching for "Terminal" in Spotlight.
+#### 2. Navigate to desired folder
+Pick a place where you want to save this project (locally ofc). For example, to save it on your desktop, type:
+
+`cd ~/Desktop`
+
+---
+
+#### 3. Clone the repository
+Copy and paste the following command. This will create a new folder with all the project files.
+
+`git clone https://github.com/ruddra-hassan/wordle-remake`
+
+#### 4. Enter the project directory
+`cd wordle-remake`
+
+#### 5. Run the main file
+`python wordle.py`
+
+If this command doesn't work, try using `py` instead
+
+`py wordle.py`
+
