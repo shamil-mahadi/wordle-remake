@@ -72,7 +72,7 @@ def generate_feedback(secret: str, guess: str) -> str:
     for idx, char in enumerate(
         guess
     ):  # Single pass loop, compared to previous double pass
-        if char in secret:
+        if char in secret_frequency: # O(1) lookup
             if char == secret[idx]:
                 feedback.append(colorize(char, "green"))
                 secret_frequency[char] -= 1
